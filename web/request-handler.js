@@ -5,7 +5,8 @@ var url = require('url');
 // require more modules/folders here!
 
 var asset = archive.paths.siteAssets + "/index.html";
-var sites = archive.paths.archivedSites ;
+var sites = archive.paths.archivedSites;
+var file = archive.paths.list;
 
 
 var actions = {
@@ -19,7 +20,15 @@ var actions = {
   },
 
   'POST': function(req, res){
-    
+    var data="";
+    req.on('data', function(d) {
+      data += d
+    })
+    req.on('end', function(){
+      archive.addUrlToList(data.substr(4), function(){
+        console.log("wwwweeeeee!!!!")
+      });
+    })
   },
 
   'OPTIONS': function(req, res){
