@@ -5,15 +5,23 @@ var url = require('url');
 // require more modules/folders here!
 
 var asset = archive.paths.siteAssets + "/index.html";
+var sites = archive.paths.archivedSites ;
 
 
 var actions = {
   'GET': function(req, res){
-    helpers.serveAssets(res, asset);
+    
+    if( req.url === "/"){
+      helpers.serveAssets(res, asset);
+    } else {
+      helpers.serveAssets(res, sites + "/" + req.url);
+    }
   },
+
   'POST': function(req, res){
-    helpers.serveAssets(res, asset);
+    
   },
+
   'OPTIONS': function(req, res){
     helpers.serveAssets(res, asset);
   }
@@ -27,3 +35,4 @@ exports.handleRequest = function (req, res) {
     console.log('404');
   }
 };
+
