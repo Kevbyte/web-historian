@@ -10,7 +10,7 @@ var file = archive.paths.list;
 
 
 var actions = {
-  'GET': function(req, res){
+  'GET': function(req, res){ 
     
     if( req.url === "/"){
       helpers.serveAssets(res, asset);
@@ -24,6 +24,7 @@ var actions = {
     req.on('data', function(d) {
       data += d
     })
+
     req.on('end', function(){
       archive.addUrlToList(data.substr(4), function(){
         console.log("wwwweeeeee!!!!")

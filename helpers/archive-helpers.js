@@ -1,6 +1,9 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var http = require('http');
+var fetcher = require('../workers/htmlfetcher');
+var request = require('../node_modules/request');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -55,9 +58,12 @@ exports.isUrlArchived = function(target, callback){
     }
 };
 
-exports.downloadUrls = function(){
-  //if sites folder does not contain a url in our list
-    // run fs.writeFile()
-  // if(readListOfUrls.indexOf())
-
+exports.downloadUrls = function(data){
+  _.each(data, function(url){
+    if(!url){
+      return;
+    }
+    request('http://' + url).pipe(fs.createWriteStream(exports.paths.archivedSites + "/" + url))
+  })
+  return true;
 };
